@@ -1,0 +1,24 @@
+.lo99er__error {
+  background-color: #f44283;
+  color: white;
+  font-size: 11px;
+  padding: 5px 5px;
+}
+
+.lo99er__success {
+  background-color: green;
+  color: white;
+  font-size: 11px;
+  padding: 5px 5px;
+}
+
+.lo99er__warn {
+  background-color: #d0d628;
+  color: #444;
+  font-size: 11px;
+  padding: 5px 5px;
+}
+
+.error {
+  background: blue;
+}
