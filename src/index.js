@@ -11,16 +11,16 @@ function Conx(group, config = {}) {
   !localStorage.getItem('conx-groups')
     ? localStorage.setItem('conx-groups', JSON.stringify([]))
     : null;
-  // TODO: override console object when library is included
-  //TODO: Enable logger
+
   this.enabled = JSON.parse(localStorage.getItem('conx'));
   this.groups = JSON.parse(localStorage.getItem('conx-groups'));
+  this.group = group;
 
   if (this.groups.indexOf(group) === -1) {
     this.enabled = false;
   }
+
   this.classes = config.classes;
-  this.group = group;
   this.colors = DEFAULT_COLORS;
   this.theme = config.theme ||
     this.readCSSStyles() || {
@@ -140,8 +140,8 @@ Conx.prototype = {
   },
   JSONViewer(data) {
     if (this.enabled && JSON.parse(JSON.stringify(data)).constructor === Object) {
+      const form = new FormData();
       const xhttp = new XMLHttpRequest();
-      const form = new form();
       const random = Math.random()
         .toString(36)
         .substr(2, 5);
