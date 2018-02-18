@@ -1,10 +1,11 @@
 const path = require('path');
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    'conx.min': './src/index.js',
+    demo: './demo/demo.js',
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'conx.min.js',
+    filename: '[name].js',
   },
 };
-
-// https://github.com/webpack/docs/wiki/multiple-entry-points
