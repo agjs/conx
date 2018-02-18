@@ -1,5 +1,6 @@
-window.logger = new conx('server');
-window.logger2 = new conx('app');
+const Conx = require('../src');
+window.logger = new Conx('server');
+window.logger2 = new Conx('app');
 // logger.success('Yay, everything is awesome!');
 // logger.warn('Be warned..');
 // logger.error('What the hack mate');
@@ -329,27 +330,27 @@ logger.table([
   },
 ]);
 
-logger.JSON({
-  glossary: {
-    title: 'example glossary',
-    GlossDiv: {
-      title: 'S',
-      GlossList: {
-        GlossEntry: {
-          ID: 'SGML',
-          SortAs: 'SGML',
-          GlossTerm: 'Standard Generalized Markup Language',
-          Acronym: 'SGML',
-          Abbrev: 'ISO 8879:1986',
-          GlossDef: {
-            para: 'A meta-markup language, used to create markup languages such as DocBook.',
-            GlossSeeAlso: ['GML', 'XML'],
-          },
-          GlossSee: 'markup',
-        },
-      },
-    },
-  },
-});
+// logger.JSONViewer({
+//   glossary: {
+//     title: 'example glossary',
+//     GlossDiv: {
+//       title: 'S',
+//       GlossList: {
+//         GlossEntry: {
+//           ID: 'SGML',
+//           SortAs: 'SGML',
+//           GlossTerm: 'Standard Generalized Markup Language',
+//           Acronym: 'SGML',
+//           Abbrev: 'ISO 8879:1986',
+//           GlossDef: {
+//             para: 'A meta-markup language, used to create markup languages such as DocBook.',
+//             GlossSeeAlso: ['GML', 'XML'],
+//           },
+//           GlossSee: 'markup',
+//         },
+//       },
+//     },
+//   },
+// });
 
 // logger.error('An error occured');
