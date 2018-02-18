@@ -1,6 +1,6 @@
 ![conx](src/assets/logo.png)
 
-**conx** is an elegant extension to native Javascript [console API](https://developer.mozilla.org/en/docs/Web/API/console) which allows you to decorate your consoles and adept them to your project style. **conx** provides group logging similar to [debug](https://www.npmjs.com/package/debug) which allows you to see only specific logs instead of logging all of them at the same time.
+**conx** aka consoleX is an elegant extension to native Javascript [console API](https://developer.mozilla.org/en/docs/Web/API/console) which allows you to decorate your consoles and adept them to your project style. **conx** provides group logging similar to [debug](https://www.npmjs.com/package/debug) which allows you to see only specific logs instead of logging all of them at the same time.
 
 **conx** is tiny, zero dependencies module.
 
@@ -8,59 +8,74 @@ Compared to extremly popular module [colors](https://www.npmjs.com/package/color
 
 Besides customization, **conx** comes with various custom methods that will make your usage of Console feel better than ever.
 
-# Installation
+# Motivation
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/agjs/conx.svg)](https://greenkeeper.io/)
+If you are wondering why another console module, it's simple, improvements. **conx** uses all the native browser functionality, empowering it further and filling in the gaps. Regardless of the built-in browser debugger, most developers are still using Console as the main tool for debugging and figuring out the data. **conx** brings visibility improvements as well as several extremely useful methods for working with JSON-like data. Lastly, if you are a creative individual, you will love your new shiny Console view.
+
+# Installation
 
 npm install conx --save
 
 # Usage
 
 ```javascript
-window.logger = require('conx')({ options });
+window.logger = require('conx')('groupName', { options });
 
 logger.error('An error occurred..');
 logger.success('Yay, everything is awesome..');
 logger.warn('Be warned..');
 ```
 
-If you are not using webpack or browserify, you can include conx as a script in your HTML file
-
-```html
-    <script src="./node_modules/conx/dist/conx.min.js">
-```
-
-![conx](screenshot.png)
-
-## Options
-
-**conx** is enabled by default but you must manually toggle specific groups that you want to see under your Console window.
+**conx** is disabled by default. To enable it, do the following your in your Console:
 
 ```javascript
-{
-    enabled: Boolean,
-    theme: {},
-    classes: {}
-}
-```
-
-##### enabled
-
-conx is disabled by default. You can enable it by either setting { enabled : true } in the options literal or by using localStorage. This is more convenient way since it gives you ability to switch logs on and off faster. You can set it in localStorage by typing this in your console:
-
-```javascript
-localStorage.set('conx', true);
-// or
 localStorage.conx = true;
 ```
 
 You can disable it in the same fashion.
 
+Since we want to persist our state so **conx** knows what to log and what not, we are storing in in the localStorage.
+
 ---
+
+## Group Name
+
+**conx** uses a concept of grouping consoles from different instances.
+
+```javascript
+// file 1: app.js
+const logger = require('conx')('application');
+logger.success('Yay!');
+
+// file 2: server.js
+const logger = require('conx')('server');
+logger2.warn('Beware champion!');
+```
+
+When you start using the **conx** methods, you will notice that nothing shows up in the console. That's because you have to toggle them before they show up. If we want our application logs to be shown, we simply toggle them:
+
+```javascript
+logger.toggle('application');
+// same if we want our logs from the server file
+logger.toggle('server');
+```
+
+Calling the same methods will toggle them off.
+
+## Options
+
+**conx** constructor takes two parameters, a name of the group and optionally, an options object.
+
+```javascript
+{
+    theme: {},
+    classes: {}
+}
+```
 
 ##### theme
 
-theme option allows you to set your conx theme by passing the CSS directly into the options literal. This key has the highest precedence which means that if you pass both, theme and classes properties, theme values will be applied.
+theme option allows you to set your **conx** theme by passing the CSS directly into the options literal. This key has the highest precedence which means that if you pass both, theme and classes properties, theme values will be applied. This is for the sake of performances and **recommended** way of using CSS. The reason is, **this.readCSSStyles** method will have to iterate through your entire CSS file or files, looking for the provided classes.
 
 ```javascript
 {
@@ -74,7 +89,7 @@ theme option allows you to set your conx theme by passing the CSS directly into 
 
 ##### classes
 
-classes option accepts class names as values where logger will iterate over your CSS files and grab values from there. This can be super handy if you want to use your SASS/LESS default layout to style your logs.
+classes option accepts class names as values where **conx** will iterate over your CSS files and grab values from there. This can be super handy if you want to use your SASS/LESS default layout to style your logs. This is **not the recommended** way of using CSS with **conx**.
 
 Your CSS file
 
