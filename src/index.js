@@ -1,36 +1,33 @@
 'use strict';
-
-const { ERROR_THEME, SUCCESS_THEME, WARNING_THEME, DEFAULT_COLORS } = require('../src/constants');
-
+import { detect } from 'detect-browser';
+import { ERROR_THEME, SUCCESS_THEME, WARNING_THEME, DEFAULT_COLORS } from '../src/constants';
+const browser = detect();
 /**
  * Exposing the conx class with its methods
  *
  * @param {objet} config - conx optionally takes three parameters, enabled, classes and theme
  */
-function Conx(group, config = {}) {
-  !localStorage.getItem('conx-groups')
-    ? localStorage.setItem('conx-groups', JSON.stringify([]))
-    : null;
-
-  this.enabled = JSON.parse(localStorage.getItem('conx'));
-  this.groups = JSON.parse(localStorage.getItem('conx-groups'));
-  this.group = group;
-
-  if (this.groups.indexOf(group) === -1) {
-    this.enabled = false;
+export default class Conx {
+  constructor(group, config = {}) {
+    !localStorage.getItem('conx-groups')
+      ? localStorage.setItem('conx-groups', JSON.stringify([]))
+      : null;
+    this.enabled = JSON.parse(localStorage.getItem('conx'));
+    this.groups = JSON.parse(localStorage.getItem('conx-groups'));
+    this.group = group;
+    if (this.groups.indexOf(group) === -1) {
+      this.enabled = false;
+    }
+    this.classes = config.classes;
+    this.colors = DEFAULT_COLORS;
+    this.theme = config.theme ||
+      this.readCSSStyles() || {
+        error: ERROR_THEME,
+        success: SUCCESS_THEME,
+        warn: WARNING_THEME,
+      };
+    this.sentry();
   }
-
-  this.classes = config.classes;
-  this.colors = DEFAULT_COLORS;
-  this.theme = config.theme ||
-    this.readCSSStyles() || {
-      error: ERROR_THEME,
-      success: SUCCESS_THEME,
-      warn: WARNING_THEME,
-    };
-}
-
-Conx.prototype = {
   /**
    * @description This method will iterate over the CSS files and look for provided CSS classes used for styling the logger.
    * @returns colors || false
@@ -40,7 +37,7 @@ Conx.prototype = {
     const index = groups.indexOf(group);
     index === -1 ? groups.push(group) : groups.splice(index, 1);
     localStorage.setItem('conx-groups', JSON.stringify(groups));
-  },
+  }
   readCSSStyles() {
     const errorClass = this.classes && this.classes.error ? this.classes.error : '.conx__error';
     const successClass =
@@ -70,37 +67,36 @@ Conx.prototype = {
       return Object.keys(colors).length !== 0 ? colors : '';
     }
     return false;
-  },
+  }
   colorGenerator() {
     return '#' + (((1 << 24) * Math.random()) | 0).toString(16);
-  },
+  }
   error(message) {
     if (this.enabled && this.validate(message)) {
       const err = new Error(message);
       console.error(`%c🔥  ${err.message}`, this.theme.error);
     }
-  },
+  }
   sentry() {
-    // TODO: sentry like behavior, create heroku instance etc.
     window.onerror = (message, url, lineNumber) => {
-      console.log(`%cError in ${url} on line ${lineNumber} 🔥 ${message} 🔥`, this.theme.error);
+      console.error(`%cError in ${url} on line ${lineNumber} 🔥 ${message} 🔥`, this.theme.error);
       return true;
     };
-  },
+  }
   validate(input) {
     if (input) return true;
     this.error('😭 Your logs should be explanatory, not empty.');
-  },
+  }
   success(message) {
     if (this.enabled && this.validate(message)) {
       console.info(`%c ¯\_(ツ)_/¯ ${message}`, this.theme.success);
     }
-  },
+  }
   warn(message) {
     if (this.enabled && this.validate(message)) {
       console.warn(`%c ⚠ ${message}`, this.theme.warn);
     }
-  },
+  }
   rainbow(message) {
     if (this.enabled && this.validate(message)) {
       let styles = [];
@@ -113,7 +109,7 @@ Conx.prototype = {
       });
       console.log(string, ...styles);
     }
-  },
+  }
   trace(title, callback, ...args) {
     if (this.enabled && this.validate(title) && typeof callback === 'function') {
       let string = '';
@@ -137,31 +133,47 @@ Conx.prototype = {
       );
       console.groupEnd(`${callback.name ? `${callback.name}()` : 'Anonymous function()'}`);
     }
-  },
+  }
   JSONViewer(data) {
-    if (this.enabled && JSON.parse(JSON.stringify(data)).constructor === Object) {
-      const form = new FormData();
-      const xhttp = new XMLHttpRequest();
-      const random = Math.random()
-        .toString(36)
-        .substr(2, 5);
+    if (this.enabled) {
+      if (
+        JSON.parse(JSON.stringify(data)).constructor === Object ||
+        JSON.parse(JSON.stringify(data)).constructor === Array
+      ) {
+        const form = new FormData();
+        const xhttp = new XMLHttpRequest();
+        const random = Math.random()
+          .toString(36)
+          .substr(2, 5);
 
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          window.open(`https://codebeautify.org/jsonviewer/${this.responseText}`);
-        } else {
-          // TODO: detect user browser and send them to proper browser extention url for enabling CORS
-        }
-      };
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            window.open(`https://codebeautify.org/jsonviewer/${this.responseText}`);
+            return;
+          } else if (this.readyState === 4 && this.status === 0) {
+            switch (browser && browser.name) {
+              case 'chrome':
+                return window.open(
+                  `https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi`
+                );
+              case 'firefox':
+                return window.open(
+                  'https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/'
+                );
+              default:
+                this.error('JSON Viewer is only supported in Chrome and Firedox.');
+            }
+          }
+        };
 
-      form.append('title', random);
-      form.append('content', JSON.stringify(data));
-      form.append('viewname', 'jsonviewer');
-      xhttp.open('POST', 'https://codebeautify.org/service/save', true);
-
-      xhttp.send(form);
+        form.append('title', random);
+        form.append('content', JSON.stringify(data));
+        form.append('viewname', 'jsonviewer');
+        xhttp.open('POST', 'https://codebeautify.org/service/save', true);
+        xhttp.send(form);
+      }
     }
-  },
+  }
   table(arg) {
     if (this.enabled && this.validate(arg)) {
       let table = [];
@@ -195,7 +207,5 @@ Conx.prototype = {
         this.error('table method accepts an array or an object!');
       }
     }
-  },
-};
-
-module.exports = Conx;
+  }
+}

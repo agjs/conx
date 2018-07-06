@@ -142,7 +142,9 @@ Most methods are self-explanatory and they don't differ from original naming con
 
 ### .rainbow(String)
 
-### .JSON(Array | Object)
+### .JSONViewer(Array | Object)
+
+JSONViewer uses [CodeBeautify](https://codebeautify.org) service and generates an URL for you. This is very useful when you are investigating the data coming from the API and you want tree like view. Keep in mind that if your browser doesn't have Enable-CORS extention, **conx** will redirect you to one suitable for your browser.
 
 ## Examples
 

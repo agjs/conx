@@ -8,7 +8,12 @@
     "test": "mocha",
     "start": "webpack --watch"
   },
-  "keywords": ["logging", "javascript", "console", "browser-console"],
+  "keywords": [
+    "logging",
+    "javascript",
+    "console",
+    "browser-console"
+  ],
   "bugs": {
     "url": "https://github.com/agjs/conx/issues",
     "email": "hi@aleksandar.xyz"
@@ -31,5 +36,8 @@
     "sinon": "^4.2.2",
     "sinon-chai": "^2.14.0",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "detect-browser": "^3.0.0"
   }
 }

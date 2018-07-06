@@ -15,5 +15,5 @@ const hasWorker = () => {
 
 module.exports = {
   hasLocalStorage,
-  hasWorker
+  hasWorker,
 };
