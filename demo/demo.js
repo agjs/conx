@@ -4,16 +4,7 @@ window.logger2 = new Conx('app');
 // logger.success('Yay, everything is awesome!');
 // logger.warn('Be warned..');
 // logger.error('What the hack mate');
-logger.trace(
-  'loop speed',
-  function evalSpeed() {
-    for (let i = 0; i < 500000; i += 1) {}
-  },
-  true
-);
-logger.trace('loop speed', () => {
-  for (let i = 0; i < 500000; i += 1) {}
-});
+
 logger.rainbow('Server');
 logger2.rainbow('Application');
 logger.success('Server success');
@@ -250,29 +241,6 @@ logger.table([
   },
 ]);
 
-logger.JSONViewer({
-  id: 1,
-  name: 'Leanne Graham',
-  username: 'Bret',
-  email: 'Sincere@april.biz',
-  address: {
-    street: 'Kulas Light',
-    suite: 'Apt. 556',
-    city: 'Gwenborough',
-    zipcode: '92998-3874',
-    geo: {
-      lat: '-37.3159',
-      lng: '81.1496',
-    },
-  },
-  phone: '1-770-736-8031 x56442',
-  website: 'hildegard.org',
-  company: {
-    name: 'Romaguera-Crona',
-    catchPhrase: 'Multi-layered client-server neural-net',
-    bs: 'harness real-time e-markets',
-  },
-});
 logger.table([
   {
     id: '0001',
