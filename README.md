@@ -197,6 +197,14 @@ window.conx = new conx('group-name', {
 });
 ```
 
+## Demo
+
+- clone the repository
+- npm install
+- npm run demo
+- open http://localhost:8080/demo/index.html
+- open the console and enjoy conx :-)
+
 # License
 
 (The MIT License)
