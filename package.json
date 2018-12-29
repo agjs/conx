@@ -6,7 +6,8 @@
   "homepage": "https://aleksandar.xyz",
   "scripts": {
     "test": "mocha",
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "demo": "node_modules/.bin/lite-server -c ls.json"
   },
   "keywords": [
     "logging",
@@ -32,12 +33,11 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
+    "lite-server": "^2.4.0",
     "mocha": "^5.2.0",
     "sinon": "^7.2.2",
     "sinon-chai": "^3.3.0",
-    "webpack": "^4.28.3"
-  },
-  "dependencies": {
-    "detect-browser": "^3.0.0"
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
   }
 }
