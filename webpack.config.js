@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   entry: {
-    'conx.min': './src/index.js',
+    'index': './src/index.js',
     demo: './demo/demo.js',
   },
   output: {

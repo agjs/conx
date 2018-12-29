@@ -2,7 +2,7 @@
   "name": "conx",
   "version": "0.0.5",
   "description": "Easy to use Javascript console for the browser.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "homepage": "https://aleksandar.xyz",
   "scripts": {
     "test": "mocha",
