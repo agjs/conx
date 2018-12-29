@@ -1,6 +1,6 @@
 {
   "name": "conx",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Easy to use Javascript console for the browser.",
   "main": "src/index.js",
   "homepage": "https://aleksandar.xyz",
