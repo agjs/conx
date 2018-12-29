@@ -1,16 +1,27 @@
 ![conx](src/assets/logo.png)
 
-**conx** aka consoleX is an elegant extension to native Javascript [console API](https://developer.mozilla.org/en/docs/Web/API/console) which allows you to decorate your consoles and adept them to your project style. **conx** provides group logging similar to [debug](https://www.npmjs.com/package/debug) which allows you to see only specific logs instead of logging all of them at the same time.
+**conx** aka consoleX is an elegant extension to native Javascript [console
+API](https://developer.mozilla.org/en/docs/Web/API/console) which allows you to decorate your
+consoles and adept them to your project style. **conx** provides group logging similar to
+[debug](https://www.npmjs.com/package/debug) which allows you to see only specific logs instead of
+logging all of them at the same time.
 
 **conx** is tiny, zero dependencies module.
 
-Compared to extremly popular module [colors](https://www.npmjs.com/package/colors), **conx** allows you to fully customize your output by using your own CSS.
+Compared to extremly popular module [colors](https://www.npmjs.com/package/colors), **conx** allows
+you to fully customize your output by using your own CSS.
 
-Besides customization, **conx** comes with various custom methods that will make your usage of Console feel better than ever.
+Besides customization, **conx** comes with various custom methods that will make your usage of
+Console feel better than ever.
 
 # Motivation
 
-If you are wondering why another console module, it's simple, improvements. **conx** uses all the native browser functionality, empowering it further and filling in the gaps. Regardless of the built-in browser debugger, most developers are still using Console as the main tool for debugging and figuring out the data. **conx** brings visibility improvements as well as several extremely useful methods for working with JSON-like data. Lastly, if you are a creative individual, you will love your new shiny Console view.
+If you are wondering why another console module, it's simple, improvements. **conx** uses all the
+native browser functionality, empowering it further and filling in the gaps. Regardless of the
+built-in browser debugger, most developers are still using Console as the main tool for debugging
+and figuring out the data. **conx** brings visibility improvements as well as several extremely
+useful methods for working with JSON-like data. Lastly, if you are a creative individual, you will
+love your new shiny Console view.
 
 # Installation
 
@@ -29,12 +40,13 @@ logger.warn('Be warned..');
 **conx** is disabled by default. To enable it, do the following your in your Console:
 
 ```javascript
-localStorage.conx = true;
+logger.toggle();
 ```
 
 You can disable it in the same fashion.
 
-Since we want to persist our state so **conx** knows what to log and what not, we are storing in in the localStorage.
+Since we want to persist our state so **conx** knows what to log and what not, we are storing in in
+the localStorage.
 
 ---
 
@@ -52,15 +64,18 @@ const logger = require('conx')('server');
 logger2.warn('Beware champion!');
 ```
 
-When you start using the **conx** methods, you will notice that nothing shows up in the console. That's because you have to toggle them before they show up. If we want our application logs to be shown, we simply toggle them:
+When you start using the **conx** methods, you will notice that nothing shows up in the console.
+That's because you have to toggle them before they show up. If we want our application logs to be
+shown, we simply toggle them:
 
 ```javascript
-logger.toggle('application');
-// same if we want our logs from the server file
-logger.toggle('server');
+logger.toggleGroup('groupName');
 ```
 
 Calling the same methods will toggle them off.
+
+This functionality allows you to group your messages by type and toggle them on and off when needed.
+Essentially, this enables us to focus on the logs we really care about.
 
 ## Options
 
@@ -75,7 +90,11 @@ Calling the same methods will toggle them off.
 
 ##### theme
 
-theme option allows you to set your **conx** theme by passing the CSS directly into the options literal. This key has the highest precedence which means that if you pass both, theme and classes properties, theme values will be applied. This is for the sake of performances and **recommended** way of using CSS. The reason is, **this.readCSSStyles** method will have to iterate through your entire CSS file or files, looking for the provided classes.
+theme option allows you to set your **conx** theme by passing the CSS directly into the options
+literal. This key has the highest precedence which means that if you pass both, theme and classes
+properties, theme values will be applied. This is for the sake of performances and **recommended**
+way of using CSS. The reason is, **this.readCSSStyles** method will have to iterate through your
+entire CSS file or files, looking for the provided classes.
 
 ```javascript
 {
@@ -89,7 +108,9 @@ theme option allows you to set your **conx** theme by passing the CSS directly i
 
 ##### classes
 
-classes option accepts class names as values where **conx** will iterate over your CSS files and grab values from there. This can be super handy if you want to use your SASS/LESS default layout to style your logs. This is **not the recommended** way of using CSS with **conx**.
+classes option accepts class names as values where **conx** will iterate over your CSS files and
+grab values from there. This can be super handy if you want to use your SASS/LESS default layout to
+style your logs. This is **not the recommended** way of using CSS with **conx**.
 
 Your CSS file
 
@@ -128,7 +149,8 @@ If none are passed (theme nor classes), conx will fallback to its default values
 
 ## Methods
 
-Most methods are self-explanatory and they don't differ from original naming conventions from native console API so if you have used them before, you will have an easy time using them with conx.
+Most methods are self-explanatory and they don't differ from original naming conventions from native
+console API so if you have used them before, you will have an easy time using them with conx.
 
 ### .error(String | Number)
 
@@ -136,35 +158,23 @@ Most methods are self-explanatory and they don't differ from original naming con
 
 ### .success(String | Number)
 
-### .log(String | Number)
-
 ### .table(Array | Object)
 
 ### .rainbow(String)
-
-### .JSONViewer(Array | Object)
-
-JSONViewer uses [CodeBeautify](https://codebeautify.org) service and generates an URL for you. This is very useful when you are investigating the data coming from the API and you want tree like view. Keep in mind that if your browser doesn't have Enable-CORS extention, **conx** will redirect you to one suitable for your browser.
 
 ## Examples
 
 #### Example with default properties
 
 ```javascript
-window.conx = new conx({
-  enabled: true,
-  // or in your console, localStorage.conx=true
-});
-
-conx.success('Everything is awesome!');
+window.log = new conx('group-name');
+log.success('Everything is awesome!');
 ```
 
 #### Example with theme property
 
 ```javascript
-window.conx = new conx({
-  enabled: true,
-  // or in your console, localStorage.conx=true
+window.log = new conx('group-name', {
   theme: {
     error: 'color: #fff; background-color: red;',
     success: 'color: #fff; background-color: green;',
@@ -172,15 +182,13 @@ window.conx = new conx({
   },
 });
 
-conx.error('The dark side.');
+log.error('The dark side.');
 ```
 
 #### Example with classes property
 
 ```javascript
-window.conx = new conx({
-  enabled: true,
-  // or in your console, localStorage.conx=true
+window.conx = new conx('group-name', {
   classes: {
     error: '.errorClass from your CSS file',
     success: '...',
@@ -195,8 +203,17 @@ window.conx = new conx({
 
 Copyright (c) 2017 Aleksandar Grbic <mailto:hi@aleksandar.xyz>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the 'Software'), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
