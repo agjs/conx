@@ -1,9 +1,9 @@
-import Conx from '../src';
+import Conx from '../src/index';
 window.logger = new Conx('server');
 window.logger2 = new Conx('app');
-// logger.success('Yay, everything is awesome!');
-// logger.warn('Be warned..');
-// logger.error('What the hack mate');
+logger.success('Yay, everything is awesome!');
+logger.warn('Be warned..');
+logger.error('What the hack mate');
 
 logger.rainbow('Server');
 logger2.rainbow('Application');
@@ -24,13 +24,6 @@ logger.table([
         lng: '81.1496',
       },
     },
-    phone: '1-770-736-8031 x56442',
-    website: 'hildegard.org',
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
   },
   {
     id: 2,
@@ -46,13 +39,6 @@ logger.table([
         lat: '-43.9509',
         lng: '-34.4618',
       },
-    },
-    phone: '010-692-6593 x09125',
-    website: 'anastasia.net',
-    company: {
-      name: 'Deckow-Crist',
-      catchPhrase: 'Proactive didactic contingency',
-      bs: 'synergize scalable supply-chains',
     },
   },
   {
@@ -70,13 +56,6 @@ logger.table([
         lng: '-47.0653',
       },
     },
-    phone: '1-463-123-4447',
-    website: 'ramiro.info',
-    company: {
-      name: 'Romaguera-Jacobson',
-      catchPhrase: 'Face to face bifurcated interface',
-      bs: 'e-enable strategic applications',
-    },
   },
   {
     id: 4,
@@ -92,13 +71,6 @@ logger.table([
         lat: '29.4572',
         lng: '-164.2990',
       },
-    },
-    phone: '493-170-9623 x156',
-    website: 'kale.biz',
-    company: {
-      name: 'Robel-Corkery',
-      catchPhrase: 'Multi-tiered zero tolerance productivity',
-      bs: 'transition cutting-edge web services',
     },
   },
   {
@@ -116,13 +88,6 @@ logger.table([
         lng: '62.5342',
       },
     },
-    phone: '(254)954-1289',
-    website: 'demarco.info',
-    company: {
-      name: 'Keebler LLC',
-      catchPhrase: 'User-centric fault-tolerant solution',
-      bs: 'revolutionize end-to-end systems',
-    },
   },
   {
     id: 6,
@@ -138,13 +103,6 @@ logger.table([
         lat: '-71.4197',
         lng: '71.7478',
       },
-    },
-    phone: '1-477-935-8478 x6430',
-    website: 'ola.org',
-    company: {
-      name: 'Considine-Lockman',
-      catchPhrase: 'Synchronised bottom-line interface',
-      bs: 'e-enable innovative applications',
     },
   },
   {
@@ -162,13 +120,6 @@ logger.table([
         lng: '21.8984',
       },
     },
-    phone: '210.067.6132',
-    website: 'elvis.io',
-    company: {
-      name: 'Johns Group',
-      catchPhrase: 'Configurable multimedia task-force',
-      bs: 'generate enterprise e-tailers',
-    },
   },
   {
     id: 8,
@@ -184,13 +135,6 @@ logger.table([
         lat: '-14.3990',
         lng: '-120.7677',
       },
-    },
-    phone: '586.493.6943 x140',
-    website: 'jacynthe.com',
-    company: {
-      name: 'Abernathy Group',
-      catchPhrase: 'Implemented secondary concept',
-      bs: 'e-enable extensible e-tailers',
     },
   },
   {
@@ -208,13 +152,6 @@ logger.table([
         lng: '-168.8889',
       },
     },
-    phone: '(775)976-6794 x41206',
-    website: 'conrad.com',
-    company: {
-      name: 'Yost and Sons',
-      catchPhrase: 'Switchable contextually-based project',
-      bs: 'aggregate real-time technologies',
-    },
   },
   {
     id: 10,
@@ -231,69 +168,10 @@ logger.table([
         lng: '57.2232',
       },
     },
-    phone: '024-648-3804',
-    website: 'ambrose.net',
-    company: {
-      name: 'Hoeger LLC',
-      catchPhrase: 'Centralized empowering task-force',
-      bs: 'target end-to-end models',
-    },
   },
 ]);
 
-logger.table([
-  {
-    id: '0001',
-    type: 'donut',
-    name: 'Cake',
-    ppu: 0.55,
-    batters: {
-      batter: [
-        { id: '1001', type: 'Regular' },
-        { id: '1002', type: 'Chocolate' },
-        { id: '1003', type: 'Blueberry' },
-        { id: '1004', type: "Devil's Food" },
-      ],
-    },
-    topping: [
-      { id: '5001', type: 'None' },
-      { id: '5002', type: 'Glazed' },
-      { id: '5005', type: 'Sugar' },
-      { id: '5007', type: 'Powdered Sugar' },
-      { id: '5006', type: 'Chocolate with Sprinkles' },
-      { id: '5003', type: 'Chocolate' },
-      { id: '6224', type: 'Cool' },
-    ],
-  },
-  {
-    id: '0002',
-    type: 'donut',
-    name: 'Raised',
-    ppu: 0.55,
-    batters: {
-      batter: [{ id: '1001', type: 'Regular' }],
-    },
-    topping: [
-      { id: '5001', type: 'None' },
-      { id: '5002', type: 'Glazed' },
-      { id: '5005', type: 'Sugar' },
-      { id: '5003', type: 'Chocolate' },
-      { id: '5124', type: 'Story' },
-    ],
-  },
-  {
-    id: '0003',
-    type: 'donut',
-    name: 'Old Fashioned',
-    ppu: 0.55,
-    batters: {
-      batter: [{ id: '1001', type: 'Regular' }, { id: '1002', type: 'Chocolate' }],
-    },
-    toppings: [
-      { id: '5001', type: 'None' },
-      { id: '5002', type: 'Glazed' },
-      { id: '5003', type: 'Chocolate' },
-      { id: '5334', type: 'Bro' },
-    ],
-  },
-]);
+var circularReference = { otherData: 123 };
+circularReference.myself = circularReference;
+logger.table(circularReference);
+logger.table({ name: 'Foo', lastName: 'bar', address: { street: 'cool', number: 2 } });

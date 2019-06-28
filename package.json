@@ -3,7 +3,7 @@
   "version": "0.0.6",
   "description": "Easy to use Javascript console for the browser.",
   "main": "dist/index.js",
-  "homepage": "https://aleksandar.xyz",
+  "homepage": "https://github.com/agjs/conx",
   "scripts": {
     "test": "mocha",
     "start": "webpack --watch",
